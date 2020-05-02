@@ -1,1 +1,26 @@
-<h2>Bem vindo! isto é um teste</h2>
+<%- include('../../partials/header.ejs') %>
+<body>
+  <%- include('../../partials/navbar.ejs')%>
+  <div class="container">
+    <hr />
+    <div class="card">
+      <div class="card-header">
+        <h2>Cadastro de categoria</h2>
+      </div>
+
+      <div class="card-body">
+        <form action="POST">
+          <input
+            type="text"
+            name="title"
+            placeholder="Defina o tí tulo da categoria"
+            class="form-control mb-3"
+          />
+
+          <button type="submit" class="btn btn-success">Cadastrar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+<%- include('../../partials/footer.ejs') %>
