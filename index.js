@@ -3,6 +3,9 @@ const app = Express();
 const bodyParser = require("body-parser");
 const connection = require("./database/database");
 
+const categoriesController = require("./categories/CategoriesController");
+const articlesController = require("./articles/ArticlesController");
+
 //View Engine
 app.set("view engine", "ejs");
 
@@ -22,6 +25,10 @@ connection
   .catch((msgErr) => {
     console.log("Ocorreu um erro na conexão com o banco \n" + msgErr);
   });
+
+//Categories, a barra na frente indica o prefixo
+app.use("/", categoriesController);
+app.use("/", articlesController);
 
 app.get("/", (req, res) => {
   res.render("index");
