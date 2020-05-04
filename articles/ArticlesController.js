@@ -2,6 +2,7 @@ const Express = require("Express");
 const router = Express.Router();
 const Article = require("./Article");
 const Category = require("../categories/Category");
+const slugify = require("slugify");
 
 router.get("/articles", (req, res) => {
   res.send("Rota de artigo");
@@ -10,6 +11,19 @@ router.get("/articles", (req, res) => {
 router.get("/admin/articles/new", (req, res) => {
   Category.findAll().then((categories) => {
     res.render("admin/articles/new", { categories });
+  });
+});
+
+router.post("/articles/save", (req, res) => {
+  const { title, body, category } = req.body;
+
+  Article.create({
+    title,
+    slug: slugify(title),
+    body,
+    categoryId: category,
+  }).then(() => {
+    res.render("/admin/articles");
   });
 });
 
