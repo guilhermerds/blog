@@ -5,8 +5,8 @@ const Category = require("../categories/Category");
 const slugify = require("slugify");
 
 router.get("/admin/articles", (req, res) => {
-  Article.findAll().then((categories) => {
-    res.render("admin/articles/index", { categories });
+  Article.findAll().then((articles) => {
+    res.render("admin/articles/index", { articles });
   });
 });
 
