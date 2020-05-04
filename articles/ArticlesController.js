@@ -5,7 +5,8 @@ const Category = require("../categories/Category");
 const slugify = require("slugify");
 
 router.get("/admin/articles", (req, res) => {
-  Article.findAll().then((articles) => {
+  //Criando um inner join, usa-se o include model e a tabela
+  Article.findAll({ include: [{ model: Category }] }).then((articles) => {
     res.render("admin/articles/index", { articles });
   });
 });
