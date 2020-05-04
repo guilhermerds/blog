@@ -1,0 +1,36 @@
+<%- include('../../partials/header.ejs') %>
+<body>
+  <%- include('../../partials/navbar.ejs')%>
+  <div class="container">
+    <hr />
+    <h2>Artigos</h2>
+    <a class="btn btn-success mb-4" href="/admin/articles/new">
+      Criar novo artigo
+    </a>
+
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Título</th>
+          <th>Slug</th>
+          <th>Categoria</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+  <script>
+    function confirmaDelecao(event, form) {
+      event.preventDefault();
+
+      const decisao = confirm("Você quer deletar este artigo?");
+
+      if (decisao) {
+        form.submit();
+      }
+    }
+  </script>
+</body>
+<%- include('../../partials/footer.ejs') %>
