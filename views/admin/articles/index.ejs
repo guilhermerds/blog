@@ -18,7 +18,35 @@
           <th>Ações</th>
         </tr>
       </thead>
-      <tbody></tbody>
+      <tbody>
+        <% articles.forEach(article => {%>
+        <tr>
+          <td><%= article.id %></td>
+          <td><%= article.title %></td>
+          <td><%= article.slug %></td>
+          <!-- Usando o resultado de inner join -->
+          <td><%= article.category.title %></td>
+          <td>
+            <a
+              href="/admin/articles/edit/<%= article.id %>"
+              class="btn btn-warning"
+            >
+              Editar
+            </a>
+
+            <form
+              action="/articles/delete"
+              method="POST"
+              style="display: inline;"
+              onsubmit="confirmaDelecao(event, this)"
+            >
+              <input type="hidden" name="id" value="<%= article.id %>" />
+              <button type="submit" class="btn btn-danger">Deletar</button>
+            </form>
+          </td>
+        </tr>
+        <%});%>
+      </tbody>
     </table>
   </div>
   <script>
