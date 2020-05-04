@@ -9,7 +9,8 @@
       </div>
 
       <div class="card-body">
-        <form method="POST" action="/categories/save">
+        <form method="POST" action="/categories/update">
+          <input type="hidden" name="id" value="<%= category.id %>" />
           <input
             type="text"
             name="title"
