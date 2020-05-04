@@ -4,7 +4,7 @@ const Article = require("./Article");
 const Category = require("../categories/Category");
 const slugify = require("slugify");
 
-router.get("/articles", (req, res) => {
+router.get("/admin/articles", (req, res) => {
   res.send("Rota de artigo");
 });
 
@@ -23,7 +23,7 @@ router.post("/articles/save", (req, res) => {
     body,
     categoryId: category,
   }).then(() => {
-    res.render("/admin/articles");
+    res.redirect("/admin/articles");
   });
 });
 
