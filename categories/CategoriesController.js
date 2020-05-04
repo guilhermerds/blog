@@ -71,4 +71,14 @@ router.get("/admin/categories/edit/:id", (req, res) => {
     });
 });
 
+router.post("/categories/update", (req, res) => {
+  const { title, id } = req.body;
+
+  //Metodo pra atualizar, o primeiro parametro é qual campo da tabela altera e o novo conteudo
+  //o segundo paramento é qual dos registros alterar
+  Category.update({ title }, { where: { id } }).then(() => {
+    res.redirect("/admin/categories");
+  });
+});
+
 module.exports = router;
