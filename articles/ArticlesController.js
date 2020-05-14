@@ -41,4 +41,20 @@ router.post("/articles/delete", (req, res) => {
   }
 });
 
+router.get("/:slug", (req, res) => {
+  const { slug } = req.params;
+
+  Article.findOne({ where: { slug } })
+    .then((article) => {
+      if (article != undefined) {
+        res.render("article", { article });
+      } else {
+        res.redirect("/");
+      }
+    })
+    .catch(() => {
+      res.redirect("/");
+    });
+});
+
 module.exports = router;
