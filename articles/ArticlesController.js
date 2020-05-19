@@ -41,4 +41,24 @@ router.post("/articles/delete", (req, res) => {
   }
 });
 
+router.get("/admin/articles/edit/:id", (req, res) => {
+  const { id } = req.params;
+
+  if (!isNaN(id)) {
+    Article.findByPk(id)
+      .then((article) => {
+        if (article != undefined) {
+          Category.findAll().then((categories) => {
+            res.render("admin/articles/edit", { categories });
+          });
+        } else {
+          res.redirect("/");
+        }
+      })
+      .catch(() => {
+        res.redirect("/");
+      });
+  }
+});
+
 module.exports = router;
