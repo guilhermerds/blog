@@ -59,4 +59,22 @@ router.get("/:slug", (req, res) => {
     });
 });
 
+router.get("/category/:slug", (req, res) => {
+  const { slug } = req.params;
+  Category.findOne({
+    where: { slug },
+    include: [{ model: Article }],
+  })
+    .then((category) => {
+      if (category != undefined) {
+        Category.findAll().then((categories) => {
+          res.render("index", { categories, articles: category.articles });
+        });
+      } else {
+        res.redirect("/");
+      }
+    })
+    .catch(() => res.redirect("/"));
+});
+
 module.exports = router;
