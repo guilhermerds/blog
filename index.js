@@ -41,6 +41,42 @@ app.get("/", (req, res) => {
   });
 });
 
+app.get("/:slug", (req, res) => {
+  const { slug } = req.params;
+
+  Article.findOne({ where: { slug } })
+    .then((article) => {
+      if (article != undefined) {
+        Category.findAll().then((categories) => {
+          res.render("article", { article, categories });
+        });
+      } else {
+        res.redirect("/");
+      }
+    })
+    .catch(() => {
+      res.redirect("/");
+    });
+});
+
+app.get("/category/:slug", (req, res) => {
+  const { slug } = req.params;
+  Category.findOne({
+    where: { slug },
+    include: [{ model: Article }],
+  })
+    .then((category) => {
+      if (category != undefined) {
+        Category.findAll().then((categories) => {
+          res.render("index", { categories, articles: category.articles });
+        });
+      } else {
+        res.redirect("/");
+      }
+    })
+    .catch(() => res.redirect("/"));
+});
+
 app.listen(8080, () => {
   console.log("O servidor esta rodando");
 });
