@@ -47,7 +47,9 @@ router.get("/:slug", (req, res) => {
   Article.findOne({ where: { slug } })
     .then((article) => {
       if (article != undefined) {
-        res.render("article", { article });
+        Category.findAll().then((categories) => {
+          res.render("article", { article, categories });
+        });
       } else {
         res.redirect("/");
       }
