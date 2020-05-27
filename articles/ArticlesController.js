@@ -83,4 +83,31 @@ router.post("/articles/update", (req, res) => {
     });
 });
 
+router.get("/articles/page/:num", (req, res) => {
+  const { num } = req.params;
+
+  let offset = 0;
+
+  if (!isNaN(num) && num > 0) {
+    offset = (num - 1) * 4;
+  }
+
+  Article.findAndCountAll({
+    //Define quantos registros serão retornados
+    limit: 4,
+    //Define apartir de qual registro irá retornar
+    offset,
+  }).then((articles) => {
+    let next = false;
+
+    if (offset + 4 < articles.count) {
+      next = true;
+    }
+
+    const result = { articles, next };
+
+    res.json(result);
+  });
+});
+
 module.exports = router;
