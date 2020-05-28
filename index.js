@@ -20,7 +20,10 @@ app.use(
     //Palavra secreta para criação do hash
     secret: "FNQkw^njyHDY5qK^KY#N!qa2XzMNuX",
     //maxAge- duração de vida do cookie em ms (milisegundos)
-    cookie: { maxAge: 30000 },
+    cookie: { maxAge: 300000000 },
+    //Permite a reescrita da sessão
+    resave: false,
+    saveUninitialized: true,
   })
 );
 
