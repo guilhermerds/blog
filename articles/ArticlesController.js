@@ -93,6 +93,7 @@ router.get("/articles/page/:num", (req, res) => {
   }
 
   Article.findAndCountAll({
+    order: [["id", "DESC"]],
     //Define quantos registros serão retornados
     limit: 4,
     //Define apartir de qual registro irá retornar
@@ -104,7 +105,7 @@ router.get("/articles/page/:num", (req, res) => {
       next = true;
     }
 
-    const result = { articles, next };
+    const result = { articles, next, page: parseInt(num) };
 
     Category.findAll().then((categories) => {
       res.render("admin/articles/page", { result, categories });
